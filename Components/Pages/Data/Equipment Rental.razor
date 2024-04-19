@@ -1,0 +1,131 @@
+﻿@page "/Equipment Rental"
+@inherits Manage_Rental
+@using SoftwareAnalysis.Models;
+@inject RentalDbAccessor RentalDbAccessor
+
+
+<header id="headerEquipment" class="headerForEquipment">
+	<h2>Equipment Rental Information</h2>
+</header>
+<hr/>
+<body>
+	<div class="firstLine">
+			<div class="groupboxes">
+			<label for="textbox">Customer ID:</label>
+			<InputNumber id="textbox" name="textbox" @bind-Value="rental.CustomerId" />
+			</div>
+		</div>
+		<div class="thirdLine">
+			<div class="groupboxes">
+			<label for="textbox">Equipment ID:</label>
+			<InputNumber id="textbox" name="textbox" @bind-Value="rental.EquipmentId" />
+			</div>
+		<div class="groupboxes">
+			<label for="textbox">Name of Equipment:</label>
+			<InputText id="textbox" name="textbox" @bind-Value="rental.EquipmentName" />
+		</div>
+		<div class="groupboxes">
+			<label for="textbox">Description:</label>
+			<InputText id="textbox" name="textbox" @bind-Value="rental.Description" />
+		</div>
+		<div class="groupboxes">
+			<label for="textbox">Rent Start Date:</label>
+			<InputDate id="textbox" name="textbox" @bind-Value="rental.RentalStartDate" />
+		</div>
+		<div class="groupboxes">
+			<label for="textbox">Rent End Date:</label>
+			<InputDate id="textbox" name="textbox" @bind-Value="rental.RentalEndDate" />
+		</div>
+	</div>
+
+	<hr/>
+
+	<div class="fourthLine">
+		<div class="groupboxes">
+			<label for="textbox">Quantity:</label>
+			<InputNumber id="textbox" name="textbox" @bind-Value="rental.Quantity" />
+		</div>
+		<div class="groupboxes">
+			<label for="textbox">Total Price:</label>
+			<InputNumber id="textbox" name="textbox" @bind-Value="rental.RentalPrice" />
+		</div>
+	</div>
+
+	<div>
+		<button class="button1 btn-primary" @onclick="() => Add(rental)">Add</button>
+	</div>
+</body>
+
+<br />
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Rental ID</th>
+			<th>Customer ID</th>
+			<th>Equipment ID</th>
+			<th>Name of Equipment</th>
+			<th>Description</th>
+			<th>Rent Start Date</th>
+			<th>Rent End Date</th>
+			<th>Quantity</th>
+			<th>Total Price</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var tmpRental in rentals)
+		{
+			<tr>
+				<td>@tmpRental.RentalId</td>
+				<td>@tmpRental.CustomerId</td>
+				<td>@tmpRental.EquipmentId</td>
+				<td>@tmpRental.EquipmentName</td>
+				<td>@tmpRental.Description</td>
+				<td>@tmpRental.RentalStartDate</td>
+				<td>@tmpRental.RentalEndDate</td>
+				<td>@tmpRental.Quantity</td>
+				<td>@tmpRental.RentalPrice</td>
+				<td class="text-center">
+					<button class="btn btn-danger" @onclick="() => Delete(tmpRental)">Delete</button>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<style>
+	
+	.firstLine {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.groupboxes {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+
+	.groupboxes label {
+		width: 150px;
+		text-align: left;
+		margin-right: 10px;
+	}
+
+	h2 {
+		text-align: center;
+	}
+
+	.button1 {
+		margin-top: 20px;
+	}
+
+
+</style>
+
+@code {
+	Rental rental = new Rental();
+
+	
+}

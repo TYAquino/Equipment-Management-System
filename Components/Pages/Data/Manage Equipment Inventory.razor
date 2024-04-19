@@ -1,0 +1,111 @@
+﻿@page "/Manage Equipment Inventory"
+@inherits Manage_Equipment
+@using SoftwareAnalysis.Models;
+@inject EquipmentDbAccessor EquipmentDbAccessor
+
+<header id="headerEquipment" class="headerForEquipment">
+	<h2>Equipment Information</h2>
+</header>
+
+<hr />
+
+<div class="firstLine">
+	<div class="groupboxes">
+		<label for="textbox">Category ID:</label>
+		<InputNumber id="textbox" name="textbox" @bind-Value="equipment.CategoryId" />
+	</div>
+	<div class="groupboxes">
+		<label for="textbox">Equipment Name:</label>
+		<InputText id="textbox" name="textbox" @bind-Value="equipment.EquipmentName" />
+	</div>
+	<div class="groupboxes">
+		<label for="textbox">Description:</label>
+		<InputText id="textbox" name="textbox" @bind-Value="equipment.EquipmentDescription" />
+	</div>
+	<div class="groupboxes">
+		<label for="textbox">Daily Rate:</label>
+		<InputNumber id="textbox" name="textbox" @bind-Value="equipment.DailyRate" />
+	</div>
+</div>
+
+<hr />
+
+<div>
+	<button class="button1 btn-primary" @onclick="() => Add(equipment)">Add</button>
+</div>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Equipment ID</th>
+			<th>Category ID</th>
+			<th>Equipment Name</th>
+			<th>Equipment Description</th>
+			<th>Daily Rate</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var tmpEquipment in equipments)
+		{
+			<tr>
+				<td>@tmpEquipment.EquipmentId</td>
+				<td>@tmpEquipment.CategoryId</td>
+				<td>@tmpEquipment.EquipmentName</td>
+				<td>@tmpEquipment.EquipmentDescription</td>
+				<td>@tmpEquipment.DailyRate</td>
+				<td class="text-center">
+					<button class="btn btn-danger" @onclick="() => Delete(tmpEquipment)">Delete</button>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<style>
+
+	h2 {
+		text-align: center;
+	}
+
+	.groupboxes {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+
+	.groupboxes label {
+		width: 150px;
+		text-align: left;
+		margin-right: 10px;
+	}
+
+	.radiobutton1 label {
+		width: 50px;
+		text-align: left;
+		margin-right: 10px;
+	}
+
+	.groupboxes textarea {
+		width: 100%;
+		resize: vertical;
+	}
+
+	.button1 {
+		margin-top: 20px;
+	}
+
+	.search-button {
+		margin-right: auto;
+		padding: 2px 4px;
+		border: solid;
+		border-radius: 2px;
+		cursor: pointer;
+	}
+
+</style>
+
+@code {
+	Equipment equipment = new Equipment();
+
+}
+
