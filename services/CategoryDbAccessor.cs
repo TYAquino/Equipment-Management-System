@@ -12,7 +12,7 @@ namespace SoftwareAnalysis
 		{
 			connection.Open();
 
-			string sql = "CREATE TABLE IF NOT EXISTS category (CategoryId INT(10) AUTO_INCREMENT PRIMARY KEY, CategoryName VARCHAR(50))";
+			string sql = "CREATE TABLE IF NOT EXISTS category (CategoryId INT(10) PRIMARY KEY, CategoryName VARCHAR(50))";
 
 			connection.Execute(sql);
 
