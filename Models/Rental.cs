@@ -3,8 +3,8 @@
 	public class Rental
 	{
 		public int RentalId { get; set; }
-		public DateOnly RentalStartDate { get; set; }
-		public DateOnly RentalEndDate { get; set; }
+		public DateOnly RentalStartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+		public DateOnly RentalEndDate { get; set; } = DateOnly.FromDateTime(DateTime.Now.AddDays(1));
 		public int RentalPrice { get; set; }
 		public int CustomerId { get; set; }
 		public string FirstName { get; set; }
