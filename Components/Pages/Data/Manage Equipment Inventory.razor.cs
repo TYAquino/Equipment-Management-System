@@ -14,26 +14,53 @@ namespace SoftwareAnalysis
 
 		public List<Equipment> equipments = new List<Equipment>();
 
+		public string errorMessage;
+
 		protected override void OnInitialized()
 		{
-			EquipmentDbAccessor.CreateEquipmentTable();
+			try
+			{
+				EquipmentDbAccessor.CreateEquipmentTable();
 
-			equipments = EquipmentDbAccessor.GetEquipments();
+				equipments = EquipmentDbAccessor.GetEquipments();
+			}
+			catch (Exception ex)
+			{
+				errorMessage = $"Error Occured: {ex.Message}";
+			}
+
 		}
 
 		public void Add(Equipment equipment)
 		{
-			int id = EquipmentDbAccessor.AddEquipment(equipment);
+			try
+			{
+				int id = EquipmentDbAccessor.AddEquipment(equipment);
 
-			// System.Diagnostics.Debug.WriteLine("ID is " + id);
-			Equipment newEquipment = new Equipment(id, equipment.CategoryId, equipment.EquipmentName, equipment.EquipmentDescription, equipment.DailyRate);
-			equipments.Add(newEquipment);
+				// System.Diagnostics.Debug.WriteLine("ID is " + id);
+				Equipment newEquipment = new Equipment(id, equipment.CategoryId, equipment.EquipmentName, equipment.EquipmentDescription, equipment.DailyRate);
+				equipments.Add(newEquipment);
+			}
+			catch (Exception ex)
+			{
+				errorMessage = $"Error Occured: {ex.Message}";
+			}
+
 		}
 
 		public void Delete(Equipment equipment)
 		{
-			equipments.Remove(equipment);
-			EquipmentDbAccessor.DeleteEquipment(equipment.EquipmentId);
+			try
+			{
+				equipments.Remove(equipment);
+				EquipmentDbAccessor.DeleteEquipment(equipment.EquipmentId);
+			}
+			catch (Exception ex)
+			{
+				errorMessage = $"Error Occured: {ex.Message}";
+				equipments.Add(equipment);
+			}
+			
 		}
 	}
 
