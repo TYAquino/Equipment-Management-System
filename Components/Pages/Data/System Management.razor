@@ -42,6 +42,13 @@
     </tbody>
 </table>
 
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+	<div class="alert alert-danger">
+		@errorMessage
+	</div>
+}
+
 
 <style>
 

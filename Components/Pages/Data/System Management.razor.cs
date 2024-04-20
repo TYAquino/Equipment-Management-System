@@ -14,26 +14,51 @@ namespace SoftwareAnalysis
 
 		public List<Category> categories = new List<Category>();
 
+		public string errorMessage;
+
 		protected override void OnInitialized()
 		{
-			CategoryDbAccessor.CreateCategoryTable();
+			try
+			{
+				CategoryDbAccessor.CreateCategoryTable();
 
-			categories = CategoryDbAccessor.GetCategories();
+				categories = CategoryDbAccessor.GetCategories();
+			}
+			catch (Exception ex)
+			{
+				errorMessage = $"Error Occured: {ex.Message}";
+			}
 		}
 
 		public void Add(Category category)
 		{
-			int id = CategoryDbAccessor.AddCategory(category);
+			try
+			{
+				int id = CategoryDbAccessor.AddCategory(category);
 
-			// System.Diagnostics.Debug.WriteLine("ID is " + id);
-			Category newCategory = new Category(id, category.CategoryName);
-			categories.Add(newCategory);
+				// System.Diagnostics.Debug.WriteLine("ID is " + id);
+				Category newCategory = new Category(id, category.CategoryName);
+				categories.Add(newCategory);
+			}
+			catch (Exception ex)
+			{
+				errorMessage = $"Error Occured: {ex.Message}";
+			}
+			
 		}
 
 		public void Delete(Category category)
 		{
-			categories.Remove(category);
-			CategoryDbAccessor.DeleteCategory(category.CategoryId);
+			try
+			{
+				categories.Remove(category);
+				CategoryDbAccessor.DeleteCategory(category.CategoryId);
+			}
+			catch (Exception ex)
+			{
+				errorMessage = $"Error Occured: {ex.Message}";
+				categories.Add(category);
+			}
 		}
 	}
 
